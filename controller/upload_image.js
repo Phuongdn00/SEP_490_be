@@ -2,7 +2,7 @@ const expressAsyncHandler = require("express-async-handler");
 const mime= require("mime")
 const { v4 } = require("uuid")
 const fs= require("fs")
-
+const cloudinary = require('cloudinary').v2;
 // This function decodes a base64 image string and returns an object with the image type and data
 function decodeBase64Image(dataString) {
     var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
@@ -36,8 +36,13 @@ const uploadImage= expressAsyncHandler(async (req, res)=> {
         try{
             // Write the image data to a file in the assets/i directory with the generated filename and extension
             fs.writeFileSync("./assets/i/" + fileName + "."+ extension , imageBuffer, 'utf8');
+            cloudinary.uploader.upload("./assets/i/" + fileName + "."+ extension, (err, result)=> {
+                if(err) throw err
+                
+                console.log(result.secure_url)
+                return res.status(200).json({img: result.secure_url})
+            })
             // Return the URL of the uploaded image
-            return res.status(200).json({img: process.env.URL_SERVER + fileName + "."+ extension})
         }
         catch(err){
             console.error(err)

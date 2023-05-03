@@ -10,7 +10,12 @@ const connection = require("./database/connect")
 const io= new Server(httpServer)
 const cron = require('node-cron');
 const sendOverdueMail = require("./utils/mail_over_due")
-
+const cloudinary = require('cloudinary').v2;
+cloudinary.config({
+    cloud_name: "cockbook",
+    api_key: "362125891568421",
+    api_secret: "kR3bk36ysLWcYuKLy-MN9otXogM"
+  });
 app.use(express.json())
 app.use(express.urlencoded({
     extended: true
