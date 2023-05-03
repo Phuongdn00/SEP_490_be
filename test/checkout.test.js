@@ -43,8 +43,8 @@ describe('checkout', () => {
 
     // Assert
     expect(connection.execute).toHaveBeenCalledWith(
-      'INSERT INTO history VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-      ['1234', '1', '2', expect.any(Date), '0', 0, 0, 0, expect.any(Date)]
+      'INSERT INTO history VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      ['1234', '1', '2', expect.any(Date), '0', 0, 0, 0, expect.any(Date), 0]
     )
     expect(connection.execute).toHaveBeenCalledWith(
       'DELETE FROM cart WHERE user_id= ? AND book_id= ?',
