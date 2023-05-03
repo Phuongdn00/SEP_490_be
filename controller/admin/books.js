@@ -115,7 +115,7 @@ const books= {
             await connection.execute("UPDATE book SET book_name= ?, book_quantity= ?, book_rating= ?, book_description= ?, cover_photo= ?, link_book= ? WHERE book_id= ?", 
             [
                 req.body.book_name,
-                req.body.book_quantity,
+                parseInt(req.body.book_quantity),
                 req.body.book_rating,
                 req.body.book_description,
                 req.body.cover_photo,
