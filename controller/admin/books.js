@@ -124,18 +124,23 @@ const books= {
             ]);
 
             // await connection.execute("DELETE FROM author_book WHERE book_id= ?", [req.body.book_id]);
-            await connection.execute("DELETE FROM category_book WHERE book_id= ?", [req.body.book_id]);
+            // const [rows]= await connection.execute("DELETE FROM category_book WHERE book_id= ?", [req.body.book_id])
+            
 
-            await req.body.category_book.forEach(async cb => {
-                await connection.execute("INSERT INTO category_book VALUES(?, ?)", 
-                [
-                    req.body.book_id,
-                    cb.category_id || ""
-                ]);
-            });
+                await req.body.category_book.map(async item => {
+                    await connection.execute("INSERT INTO category_book(book_id, category_id) VALUES(?, ?) ON DUPLICATE KEY UPDATE book_id= ?, category_id= ?", 
+                    [
+                        req.body.book_id,
+                        item.id || "",
+                        req.body.book_id,
+                        item.id || ""
+                    ]);
+                });
+
 
             return res.status(200).json({update: true})
         } catch (error) {
+            console.log(error)
            return res.status(500).send(error) 
         }
     }),

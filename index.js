@@ -44,8 +44,6 @@ io.on("connection", socket=> {
 
 
 
-const cron = require('node-cron');
-
 cron.schedule('*/30 * * * *', async () => {
     const [row1]= await connection.execute("DELETE FROM history WHERE state= 1 AND is_borrow= 0 AND TIMESTAMPDIFF(MINUTE, time_approve, NOW()) >= 3")
     const [rows]= await connection.execute("UPDATE history SET state= 4 WHERE state=1 AND is_borrow= 1 AND TIMESTAMPDIFF(DAY, STR_TO_DATE(`time_approve`, '%Y-%m-%d %H:%i:%s'), NOW()) > `borrow_time`")
