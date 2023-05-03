@@ -10,14 +10,12 @@
 const mysql= require("mysql2/promise")
 
 const connection= mysql.createPool({
-    // host: "151.106.124.151",
-    // user: "u291392387_root10",
-    // password: "GIangvippro1!",
-    // database: "u291392387_library_system",
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "quan_li_thu_vien",
+
+    host: "ql479.main-hosting.eu",
+    user: "u291392387_root10",
+    password: "abc12345!A",
+    database: "u291392387_library_system",
+    port:4306
 })
 
 module.exports= connection

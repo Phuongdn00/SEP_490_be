@@ -4,7 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon index.js"
+
+
+    "start": "node index.js",
+    "test": "jest"
+
   },
   "dependencies": {
     "bluebird": "^3.7.2",
