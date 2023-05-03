@@ -37,7 +37,7 @@ const uploadImage= expressAsyncHandler(async (req, res)=> {
             // Write the image data to a file in the assets/i directory with the generated filename and extension
             fs.writeFileSync("./assets/i/" + fileName + "."+ extension , imageBuffer, 'utf8');
             // Return the URL of the uploaded image
-            return res.status(200).json({img: "http://localhost:4000/i/" + fileName + "."+ extension})
+            return res.status(200).json({img: process.env.URL_SERVER + fileName + "."+ extension})
         }
         catch(err){
             console.error(err)
