@@ -7,7 +7,10 @@ const { jwtInit } = require("../middleware/jwt")
 const login= asyncHandler(async (req, res)=> {
     try {
         // Check if user email and password are valid
+        // console.log(req.body)
+        // console.log(md5(req.body.password))
         const [rows]= await connection.execute("SELECT user_id, role FROM user WHERE user_email= ? AND user_password=? ", [req.body.account, md5(req.body.password)])
+        // console.log(rows)
         if(rows.length > 0) {
             // If user is admin
             if(parseInt(rows[0]?.role)=== 3) {
