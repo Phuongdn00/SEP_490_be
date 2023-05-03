@@ -39,4 +39,4 @@ const sendOverdueMail= async (email, data)=> {
     }
 }
 
-module.exports= verifyMail
+module.exports= sendOverdueMail
