@@ -50,6 +50,7 @@ const get_notification = require("../controller/staff/get_notification")
 const read_notification_order = require("../controller/read_notification_order")
 const detail_blogs = require("../controller/detail_blogs")
 const edit_blogs = require("../controller/edit_blogs")
+const connection = require("../database/connect")
 
 const router= express.Router()
 
@@ -164,5 +165,20 @@ router.post("/api/v2/read/notification", read_notification_order)
 
 router.get("/api/v3/blog/detail", detail_blogs)
 router.post("/api/v3/blog/edit", edit_blogs)
+router.post("/api/v1/check_user_rating", async (req, res)=> {
+    try {
+        console.log(req.body)
+        const [rows]= await connection.execute("SELECT * FROM rating WHERE book_id = ? AND user_id= ?", [req.body.book_id, req.body.user_id])
+        if(rows.length > 0) {
+            return res.status(200).json({exist: true})
+        }
+        else {
+            return res.status(200).json({exist: false})
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json(error)
+    }
+})
 
 module.exports= router
